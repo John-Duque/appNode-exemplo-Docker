@@ -1,0 +1,48 @@
+Comando para gerar uma imagem:
+docker build -t exemploDocker/app-node:1.0 .
+
+Comando para rodar nossa imagem que foi gerada:
+docker run --name exemploDocker -d -p 8081:6000 exemploDocker/app-node:1.0
+
+comando para parar todos os container:
+docker stop $(docker container ls -q)
+
+caso voce queira persistir os dados do docker na sua maquina e no container usando volume:
+docker run -it -v /home/{nomeMaquina}/{pastaDaMaquinaPessoal}:/{nomePastaDoDocker} ubuntu bash
+
+caso voce queira persistir os dados do docker na sua maquina e no container usando mount:
+docker run -it --mount type=bind,source=/home/{nomeMaquina}/{pastaDaMaquinaPessoal},target=/{nomePastaDoDocker} ubuntu bash
+
+como criar um volume:
+docker volume create meu-volume
+
+como listar os volumes criados:
+docker volume ls
+
+#recomendado
+usando o volume agora para nao perder os dados:
+docker run -it -v {meu-volume}:/{nomePastaDoDocker} ubuntu bash
+
+usando o volume agora para nao perder os dados e usando o mount:
+docker run -it --mount source={meu-volume},target=/{nomePastaDoDocker} ubuntu bash
+
+comando para listar as redes existentes:
+docker network ls
+
+comando para criar nossa propria rede no docker:
+docker network create --driver bridge minha-rede
+
+Comando para rodar nossa imagem que foi gerada agora com a nossa network:
+docker run --name exemploDocker -d -p 8081:6000 --network minha-rede exemploDocker/app-node:1.0
+
+#Docker Compose
+
+docker compose up -d 
+
+docker compose stop
+
+dcoker compose down 
+
+
+
+
